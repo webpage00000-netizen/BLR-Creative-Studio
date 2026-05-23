@@ -55,7 +55,6 @@
       display:flex;
       gap:1rem;
       list-style:none;
-      flex-wrap:wrap;
     }
 
     nav a{
@@ -72,6 +71,57 @@
       background:rgba(255,215,140,.15);
       border:1px solid rgba(255,215,140,.4);
       color:#fff;
+    }
+
+    .menu-btn{
+      display:none;
+      font-size:1.8rem;
+      cursor:pointer;
+      color:#fff;
+      z-index:101;
+    }
+
+    /* OVERLAY */
+    #overlay{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.5);
+      opacity:0;
+      pointer-events:none;
+      transition:.3s;
+      z-index:99;
+    }
+
+    /* MOBILE SIDEBAR */
+    @media(max-width:768px){
+
+      .menu-btn{
+        display:block;
+      }
+
+      nav ul{
+        position:fixed;
+        top:0;
+        right:-75%;
+        width:75%;
+        height:100vh;
+        flex-direction:column;
+        padding:5rem 2rem;
+        gap:1.2rem;
+        background:rgba(10,12,18,.95);
+        backdrop-filter:blur(20px);
+        transition:.4s ease;
+        z-index:100;
+      }
+
+      nav ul.show{
+        right:0;
+      }
+
+      #overlay.show{
+        opacity:1;
+        pointer-events:auto;
+      }
     }
 
     section.tab{
@@ -150,19 +200,25 @@
     }
   </style>
 </head>
+
 <body>
 
 <nav>
   <div class="logo">Brix Creative Studio</div>
-  <ul>
-    <li><a class="active" onclick="showTab('home',this)">Home</a></li>
-    <li><a onclick="showTab('about',this)">About</a></li>
-    <li><a onclick="showTab('services',this)">Services</a></li>
-    <li><a onclick="showTab('projects',this)">Projects</a></li>
-    <li><a onclick="showTab('pricing',this)">Pricing</a></li>
-    <li><a onclick="showTab('contact',this)">Contact</a></li>
+
+  <div class="menu-btn" onclick="toggleMenu()">☰</div>
+
+  <ul id="sidebar">
+    <li><a class="active" onclick="showTab('home',this); toggleMenu()">Home</a></li>
+    <li><a onclick="showTab('about',this); toggleMenu()">About</a></li>
+    <li><a onclick="showTab('services',this); toggleMenu()">Services</a></li>
+    <li><a onclick="showTab('projects',this); toggleMenu()">Projects</a></li>
+    <li><a onclick="showTab('pricing',this); toggleMenu()">Pricing</a></li>
+    <li><a onclick="showTab('contact',this); toggleMenu()">Contact</a></li>
   </ul>
 </nav>
+
+<div id="overlay" onclick="toggleMenu()"></div>
 
 <section id="home" class="tab active">
   <div class="hero">
@@ -262,6 +318,11 @@ function showTab(id,el){
 
   document.querySelectorAll('nav a').forEach(a=>a.classList.remove('active'));
   el.classList.add('active');
+}
+
+function toggleMenu(){
+  document.getElementById('sidebar').classList.toggle('show');
+  document.getElementById('overlay').classList.toggle('show');
 }
 </script>
 
