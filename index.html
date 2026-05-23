@@ -1,204 +1,265 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Brix Creative Studio</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Brix Creative Studio</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <style>
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:'Poppins',sans-serif;
-    }
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
 
-    body{
-      background: radial-gradient(circle at top, #0f1722, #070a0f 45%, #040507);
-      color:#f5f5f5;
-      overflow-x:hidden;
-    }
+body{
+  background: radial-gradient(circle at top, #0b1220, #05070b);
+  color:#fff;
+  overflow-x:hidden;
+}
 
-    body::before{
-      content:"";
-      position:fixed;
-      inset:0;
-      background:
-        radial-gradient(circle at 10% 20%, rgba(120,200,255,.18), transparent 40%),
-        radial-gradient(circle at 80% 25%, rgba(255,215,140,.14), transparent 45%),
-        radial-gradient(circle at 40% 80%, rgba(255,255,255,.08), transparent 50%),
-        radial-gradient(circle at 70% 70%, rgba(160,120,255,.12), transparent 45%);
-      z-index:-1;
-    }
+/* BACKGROUND GLOW */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(120,200,255,.15), transparent 45%),
+    radial-gradient(circle at 80% 30%, rgba(255,215,120,.10), transparent 50%),
+    radial-gradient(circle at 50% 85%, rgba(180,140,255,.10), transparent 55%);
+  z-index:-1;
+}
 
-    nav{
-      position:fixed;
-      top:0;
-      width:100%;
-      padding:1rem 8%;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      z-index:100;
-      background:rgba(255,255,255,.05);
-      backdrop-filter:blur(28px) saturate(180%);
-      border-bottom:1px solid rgba(255,255,255,.08);
-    }
+/* NAV */
+nav{
+  position:fixed;
+  top:18px;
+  left:50%;
+  transform:translateX(-50%);
+  width:min(1100px,92%);
+  padding:10px 14px;
 
-    .logo{font-weight:600;}
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
 
-    nav ul{
-      display:flex;
-      gap:1rem;
-      list-style:none;
-    }
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.15);
+  backdrop-filter:blur(25px);
 
-    nav a{
-      color:#ddd;
-      text-decoration:none;
-      padding:.5rem .9rem;
-      border-radius:999px;
-      cursor:pointer;
-      transition:.3s;
-      border:1px solid transparent;
-    }
+  border-radius:999px;
+  box-shadow:0 25px 60px rgba(0,0,0,.45);
 
-    nav a.active{
-      background:rgba(255,215,140,.15);
-      border:1px solid rgba(255,215,140,.4);
-      color:#fff;
-    }
+  z-index:100;
+}
 
-    .menu-btn{
-      display:none;
-      font-size:1.8rem;
-      cursor:pointer;
-      color:#fff;
-      z-index:101;
-    }
+/* LOGO */
+.logo{
+  padding:8px 14px;
+  border-radius:999px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.12);
+  font-weight:600;
+  transition:.3s;
+}
 
-    /* OVERLAY */
-    #overlay{
-      position:fixed;
-      inset:0;
-      background:rgba(0,0,0,.5);
-      opacity:0;
-      pointer-events:none;
-      transition:.3s;
-      z-index:99;
-    }
+.logo:hover{
+  transform:scale(1.05);
+  border-color:rgba(212,175,55,.5);
+  box-shadow:0 0 20px rgba(212,175,55,.15);
+}
 
-    /* MOBILE SIDEBAR */
-    @media(max-width:768px){
+/* NAV LINKS */
+.nav-bubble{
+  display:flex;
+  gap:8px;
+  padding:6px;
+  border-radius:999px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.12);
+}
 
-      .menu-btn{
-        display:block;
-      }
+.nav-bubble a{
+  color:#ddd;
+  text-decoration:none;
+  padding:8px 14px;
+  border-radius:999px;
+  cursor:pointer;
+  transition:.25s ease;
+}
 
-      nav ul{
-        position:fixed;
-        top:0;
-        right:-75%;
-        width:75%;
-        height:100vh;
-        flex-direction:column;
-        padding:5rem 2rem;
-        gap:1.2rem;
-        background:rgba(10,12,18,.95);
-        backdrop-filter:blur(20px);
-        transition:.4s ease;
-        z-index:100;
-      }
+/* NAV HOVER */
+.nav-bubble a:hover{
+  background:rgba(255,255,255,.08);
+  transform:translateY(-2px);
+  color:#fff;
+}
 
-      nav ul.show{
-        right:0;
-      }
+.nav-bubble a.active{
+  background:rgba(212,175,55,.15);
+  border:1px solid rgba(212,175,55,.4);
+  color:#fff;
+}
 
-      #overlay.show{
-        opacity:1;
-        pointer-events:auto;
-      }
-    }
+/* MOBILE */
+.menu-bubble{
+  display:none;
+  padding:10px 14px;
+  border-radius:999px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.15);
+  cursor:pointer;
+  transition:.3s;
+}
 
-    section.tab{
-      display:none;
-      padding:120px 8% 60px;
-      animation:fade .4s ease;
-    }
+.menu-bubble:hover{
+  transform:scale(1.1) rotate(5deg);
+  border-color:rgba(212,175,55,.4);
+}
 
-    section.tab.active{
-      display:block;
-    }
+#overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.45);
+  opacity:0;
+  pointer-events:none;
+  transition:.3s;
+}
 
-    @keyframes fade{
-      from{opacity:0;transform:translateY(10px)}
-      to{opacity:1;transform:translateY(0)}
-    }
+#overlay.show{
+  opacity:1;
+  pointer-events:auto;
+}
 
-    .hero{
-      min-height:60vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-    }
+.sidebar{
+  position:fixed;
+  top:0;
+  right:-75%;
+  width:75%;
+  height:100vh;
+  padding:6rem 2rem;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  background:rgba(255,255,255,.06);
+  backdrop-filter:blur(25px);
+  transition:.4s;
+}
 
-    .hero h1{
-      font-size:clamp(2.5rem,7vw,4.5rem);
-      background:linear-gradient(90deg,#fff,#d8d8d8,#fff);
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-    }
+.sidebar.show{ right:0; }
 
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-      gap:1.2rem;
-    }
+.sidebar a{
+  padding:14px;
+  border-radius:14px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.1);
+  color:#fff;
+  text-decoration:none;
+  transition:.25s;
+}
 
-    .glass{
-      background:rgba(255,255,255,.04);
-      border:1px solid rgba(255,255,255,.12);
-      border-radius:24px;
-      padding:1.5rem;
-      backdrop-filter:blur(35px);
-      box-shadow:0 15px 50px rgba(0,0,0,.35);
-      transition:.3s;
-    }
+/* SIDEBAR HOVER */
+.sidebar a:hover{
+  transform:translateX(8px);
+  background:rgba(212,175,55,.12);
+  border-color:rgba(212,175,55,.3);
+}
 
-    .glass:hover{transform:translateY(-6px);}
+/* SECTIONS */
+section.tab{
+  display:none;
+  padding:150px 8% 60px;
+}
 
-    .title{text-align:center;font-size:2rem;margin-bottom:2rem;}
+section.tab.active{
+  display:block;
+}
 
-    .btn{
-      margin-top:1rem;
-      display:inline-block;
-      padding:.6rem 1rem;
-      border-radius:999px;
-      border:1px solid rgba(255,215,140,.4);
-      background:rgba(255,215,140,.08);
-      color:#fff;
-      cursor:pointer;
-      transition:.3s;
-      text-decoration:none;
-    }
+.hero{
+  min-height:60vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+}
 
-    .btn:hover{
-      background:rgba(255,215,140,.18);
-    }
+.hero h1{
+  font-size:clamp(2rem,6vw,4rem);
+}
 
-    img{
-      width:100%;
-      height:180px;
-      object-fit:cover;
-      border-radius:16px;
-      margin-bottom:1rem;
-    }
-  </style>
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:1rem;
+}
+
+/* GLASS CARDS */
+.glass{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:20px;
+  padding:1.2rem;
+  backdrop-filter:blur(20px);
+  transition:.3s ease;
+  position:relative;
+  overflow:hidden;
+}
+
+/* CARD HOVER */
+.glass:hover{
+  transform:translateY(-8px) scale(1.02);
+  border-color:rgba(212,175,55,.35);
+  box-shadow:0 20px 50px rgba(0,0,0,.4);
+}
+
+/* BUTTON */
+.btn{
+  display:inline-block;
+  margin-top:10px;
+  padding:8px 14px;
+  border-radius:999px;
+  background:rgba(212,175,55,.15);
+  border:1px solid rgba(212,175,55,.4);
+  color:#fff;
+  text-decoration:none;
+  cursor:pointer;
+  transition:.25s ease;
+}
+
+/* BUTTON HOVER */
+.btn:hover{
+  transform:scale(1.08);
+  background:rgba(212,175,55,.25);
+  box-shadow:0 0 20px rgba(212,175,55,.25);
+}
+
+/* IMAGES */
+img{
+  width:100%;
+  height:170px;
+  object-fit:cover;
+  border-radius:14px;
+  margin-bottom:10px;
+  transition:.4s ease;
+}
+
+/* IMAGE HOVER */
+img:hover{
+  transform:scale(1.05);
+  filter:brightness(1.1) contrast(1.05);
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .nav-bubble{display:none;}
+  .menu-bubble{display:block;}
+}
+
+</style>
 </head>
 
 <body>
@@ -206,108 +267,136 @@
 <nav>
   <div class="logo">Brix Creative Studio</div>
 
-  <div class="menu-btn" onclick="toggleMenu()">☰</div>
+  <div class="nav-bubble">
+    <a class="active" onclick="showTab('home',this)">Home</a>
+    <a onclick="showTab('about',this)">About</a>
+    <a onclick="showTab('services',this)">Services</a>
+    <a onclick="showTab('projects',this)">Projects</a>
+    <a onclick="showTab('pricing',this)">Pricing</a>
+    <a onclick="showTab('contact',this)">Contact</a>
+  </div>
 
-  <ul id="sidebar">
-    <li><a class="active" onclick="showTab('home',this); toggleMenu()">Home</a></li>
-    <li><a onclick="showTab('about',this); toggleMenu()">About</a></li>
-    <li><a onclick="showTab('services',this); toggleMenu()">Services</a></li>
-    <li><a onclick="showTab('projects',this); toggleMenu()">Projects</a></li>
-    <li><a onclick="showTab('pricing',this); toggleMenu()">Pricing</a></li>
-    <li><a onclick="showTab('contact',this); toggleMenu()">Contact</a></li>
-  </ul>
+  <div class="menu-bubble" onclick="toggleMenu()">☰</div>
 </nav>
 
 <div id="overlay" onclick="toggleMenu()"></div>
 
+<div class="sidebar" id="sidebar">
+  <a onclick="showTab('home',this); toggleMenu()">Home</a>
+  <a onclick="showTab('about',this); toggleMenu()">About</a>
+  <a onclick="showTab('services',this); toggleMenu()">Services</a>
+  <a onclick="showTab('projects',this); toggleMenu()">Projects</a>
+  <a onclick="showTab('pricing',this); toggleMenu()">Pricing</a>
+  <a onclick="showTab('contact',this); toggleMenu()">Contact</a>
+</div>
+
+<!-- HOME -->
 <section id="home" class="tab active">
   <div class="hero">
-    <div>
-      <h1>Turning Moments Into Interactive Memories</h1>
-      <p>Explore my creative studio</p>
-    </div>
+    <h1>Turning Moments Into Interactive Memories</h1>
   </div>
 
   <div class="grid">
     <div class="glass">
       <h3>About</h3>
-      <p>Learn more about what I do and how I create interactive experiences.</p>
-      <a class="btn" onclick="showTab('about',document.querySelectorAll('nav a')[1])">Go</a>
+      <p>Learn who I am and what I create.</p>
+      <a class="btn" onclick="showTab('about',document.querySelectorAll('.nav-bubble a')[1])">Go</a>
     </div>
 
     <div class="glass">
       <h3>Services</h3>
-      <p>Monthsary, birthdays, invitations and custom webpages.</p>
-      <a class="btn" onclick="showTab('services',document.querySelectorAll('nav a')[2])">Go</a>
+      <p>Custom websites for special occasions.</p>
+      <a class="btn" onclick="showTab('services',document.querySelectorAll('.nav-bubble a')[2])">Go</a>
     </div>
 
     <div class="glass">
       <h3>Projects</h3>
-      <p>Sample works and interactive designs I’ve built.</p>
-      <a class="btn" onclick="showTab('projects',document.querySelectorAll('nav a')[3])">Go</a>
+      <p>My sample works and designs.</p>
+      <a class="btn" onclick="showTab('projects',document.querySelectorAll('.nav-bubble a')[3])">Go</a>
     </div>
 
     <div class="glass">
       <h3>Pricing</h3>
-      <p>Affordable and custom pricing depending on your needs.</p>
-      <a class="btn" onclick="showTab('pricing',document.querySelectorAll('nav a')[4])">Go</a>
+      <p>Affordable and custom packages.</p>
+      <a class="btn" onclick="showTab('pricing',document.querySelectorAll('.nav-bubble a')[4])">Go</a>
     </div>
 
     <div class="glass">
       <h3>Contact</h3>
-      <p>Reach me through my social media, email, or phone (inside contact page).</p>
-      <a class="btn" onclick="showTab('contact',document.querySelectorAll('nav a')[5])">Go</a>
+      <p>Reach me anytime.</p>
+      <a class="btn" onclick="showTab('contact',document.querySelectorAll('.nav-bubble a')[5])">Go</a>
     </div>
   </div>
 </section>
 
+<!-- ABOUT -->
 <section id="about" class="tab">
-  <h2 class="title">About Me</h2>
-  <div class="glass">I create interactive webpages for special digital experiences.</div>
-</section>
-
-<section id="services" class="tab">
-  <h2 class="title">Services</h2>
-  <div class="grid">
-    <div class="glass">💖 Monthsary & Anniversary</div>
-    <div class="glass">🎂 Birthday Dedications</div>
-    <div class="glass">💌 Invitations</div>
-    <div class="glass">👶 Christening Pages</div>
-    <div class="glass">✨ Custom Web Experiences</div>
+  <div class="glass">
+    <h2>About Me</h2>
+    <p>
+      I am a creative web designer focused on building interactive,
+      emotional, and modern web experiences using glassmorphism UI,
+      animations, and storytelling-based design.
+    </p>
   </div>
 </section>
 
+<!-- SERVICES -->
+<section id="services" class="tab">
+  <div class="grid">
+    <div class="glass">💖 Monthsary / Anniversary Pages</div>
+    <div class="glass">🎂 Birthday Dedication Websites</div>
+    <div class="glass">💌 Digital Invitations</div>
+    <div class="glass">👶 Christening / Events Pages</div>
+    <div class="glass">✨ Custom Interactive Websites</div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
 <section id="projects" class="tab">
-  <h2 class="title">Sample Projects</h2>
   <div class="grid">
     <div class="glass">
       <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2">
       Romantic Monthsary Page
     </div>
+
     <div class="glass">
       <img src="https://images.unsplash.com/photo-1464349095431-e9a21285b5fc">
       Birthday Dedication
     </div>
+
     <div class="glass">
       <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc">
-      Online Invitation
+      Digital Invitation
     </div>
   </div>
 </section>
 
+<!-- PRICING -->
 <section id="pricing" class="tab">
-  <h2 class="title">Pricing</h2>
   <div class="grid">
-    <div class="glass">Basic <p>₱299</p></div>
-    <div class="glass">Premium <p>₱599</p></div>
-    <div class="glass">Custom <p>Flexible</p></div>
+    <div class="glass">
+      <h3>Basic</h3>
+      <p>₱299</p>
+    </div>
+
+    <div class="glass">
+      <h3>Premium</h3>
+      <p>₱599</p>
+    </div>
+
+    <div class="glass">
+      <h3>Custom</h3>
+      <p>Depends on request</p>
+    </div>
   </div>
 </section>
 
+<!-- CONTACT -->
 <section id="contact" class="tab">
-  <h2 class="title">Contact</h2>
-  <div class="glass" style="text-align:center;">
-    You can reach me through Facebook, Email, or Phone number (shown privately upon inquiry).
+  <div class="glass">
+    <h2>Contact Me</h2>
+    <p>Facebook • Email • Phone (available upon inquiry)</p>
   </div>
 </section>
 
@@ -316,8 +405,10 @@ function showTab(id,el){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.getElementById(id).classList.add('active');
 
-  document.querySelectorAll('nav a').forEach(a=>a.classList.remove('active'));
-  el.classList.add('active');
+  document.querySelectorAll('.nav-bubble a, .sidebar a')
+    .forEach(a=>a.classList.remove('active'));
+
+  if(el) el.classList.add('active');
 }
 
 function toggleMenu(){
