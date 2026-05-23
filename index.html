@@ -10,383 +10,259 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-      scroll-behavior: smooth;
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Poppins',sans-serif;
     }
 
-    /* 🌈 IMPROVED BACKGROUND FOR GLASS VISIBILITY */
-    body {
+    body{
       background: radial-gradient(circle at top, #0f1722, #070a0f 45%, #040507);
-      color: #f5f5f5;
-      overflow-x: hidden;
+      color:#f5f5f5;
+      overflow-x:hidden;
     }
 
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
       background:
-        radial-gradient(circle at 10% 20%, rgba(120, 200, 255, 0.18), transparent 40%),
-        radial-gradient(circle at 80% 25%, rgba(255, 215, 140, 0.14), transparent 45%),
-        radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.08), transparent 50%),
-        radial-gradient(circle at 70% 70%, rgba(160, 120, 255, 0.12), transparent 45%);
-      z-index: -1;
+        radial-gradient(circle at 10% 20%, rgba(120,200,255,.18), transparent 40%),
+        radial-gradient(circle at 80% 25%, rgba(255,215,140,.14), transparent 45%),
+        radial-gradient(circle at 40% 80%, rgba(255,255,255,.08), transparent 50%),
+        radial-gradient(circle at 70% 70%, rgba(160,120,255,.12), transparent 45%);
+      z-index:-1;
     }
 
-    /* ===== GATE ===== */
-    .gate {
-      position: fixed;
-      inset: 0;
-      background: rgba(10, 12, 18, 0.55);
-      backdrop-filter: blur(35px) saturate(160%);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      z-index: 999;
-      transition: 0.8s ease;
+    nav{
+      position:fixed;
+      top:0;
+      width:100%;
+      padding:1rem 8%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      z-index:100;
+      background:rgba(255,255,255,.05);
+      backdrop-filter:blur(28px) saturate(180%);
+      border-bottom:1px solid rgba(255,255,255,.08);
     }
 
-    .gate.hidden {
-      opacity: 0;
-      visibility: hidden;
+    .logo{font-weight:600;}
+
+    nav ul{
+      display:flex;
+      gap:1rem;
+      list-style:none;
+      flex-wrap:wrap;
     }
 
-    .gate h1 {
-      font-size: clamp(2rem, 5vw, 4rem);
-      text-align: center;
-      background: linear-gradient(90deg, #fff, #cfcfcf, #fff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 1rem;
+    nav a{
+      color:#ddd;
+      text-decoration:none;
+      padding:.5rem .9rem;
+      border-radius:999px;
+      cursor:pointer;
+      transition:.3s;
+      border:1px solid transparent;
     }
 
-    .gate button {
-      padding: 14px 32px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.18);
-      background: rgba(255,255,255,.06);
-      color: white;
-      cursor: pointer;
-      backdrop-filter: blur(25px) saturate(180%);
-      transition: 0.35s;
-      box-shadow: 0 15px 40px rgba(0,0,0,.35);
+    nav a.active{
+      background:rgba(255,215,140,.15);
+      border:1px solid rgba(255,215,140,.4);
+      color:#fff;
     }
 
-    .gate button:hover {
-      transform: translateY(-5px);
-      background: rgba(255,255,255,.12);
-      box-shadow: 0 20px 60px rgba(0,0,0,.5);
+    section.tab{
+      display:none;
+      padding:120px 8% 60px;
+      animation:fade .4s ease;
     }
 
-    /* ===== NAV ===== */
-    nav {
-      position: fixed;
-      width: 100%;
-      top: 0;
-      padding: 1rem 8%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 100;
-      background: rgba(255,255,255,.05);
-      backdrop-filter: blur(28px) saturate(180%);
-      border-bottom: 1px solid rgba(255,255,255,.08);
-      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+    section.tab.active{
+      display:block;
     }
 
-    .logo {
-      font-size: 1.2rem;
-      font-weight: 600;
+    @keyframes fade{
+      from{opacity:0;transform:translateY(10px)}
+      to{opacity:1;transform:translateY(0)}
     }
 
-    nav ul {
-      display: flex;
-      gap: 1.5rem;
-      list-style: none;
+    .hero{
+      min-height:60vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
     }
 
-    nav a {
-      color: #ddd;
-      text-decoration: none;
-      position: relative;
-      transition: .3s;
+    .hero h1{
+      font-size:clamp(2.5rem,7vw,4.5rem);
+      background:linear-gradient(90deg,#fff,#d8d8d8,#fff);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
     }
 
-    nav a::after {
-      content: "";
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 0;
-      height: 1px;
-      background: rgba(255,215,140,.8);
-      transition: .3s;
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:1.2rem;
     }
 
-    nav a:hover {
-      color: #fff;
+    .glass{
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:24px;
+      padding:1.5rem;
+      backdrop-filter:blur(35px);
+      box-shadow:0 15px 50px rgba(0,0,0,.35);
+      transition:.3s;
     }
 
-    nav a:hover::after {
-      width: 100%;
+    .glass:hover{transform:translateY(-6px);}
+
+    .title{text-align:center;font-size:2rem;margin-bottom:2rem;}
+
+    .btn{
+      margin-top:1rem;
+      display:inline-block;
+      padding:.6rem 1rem;
+      border-radius:999px;
+      border:1px solid rgba(255,215,140,.4);
+      background:rgba(255,215,140,.08);
+      color:#fff;
+      cursor:pointer;
+      transition:.3s;
+      text-decoration:none;
     }
 
-    /* ===== SECTIONS ===== */
-    section {
-      padding: 110px 8%;
+    .btn:hover{
+      background:rgba(255,215,140,.18);
     }
 
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
-
-    .hero h1 {
-      font-size: clamp(2.8rem, 8vw, 5rem);
-      line-height: 1.1;
-      background: linear-gradient(90deg,#fff,#d8d8d8,#fff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .hero p {
-      color: #b8b8b8;
-      font-size: 1.1rem;
-      margin-bottom: 2rem;
-    }
-
-    /* ===== BUTTON ===== */
-    .btn {
-      display: inline-block;
-      padding: 14px 30px;
-      border-radius: 999px;
-      text-decoration: none;
-      color: white;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.05);
-      backdrop-filter: blur(25px) saturate(160%);
-      transition: .35s;
-      box-shadow: 0 10px 30px rgba(0,0,0,.3);
-    }
-
-    .btn:hover {
-      transform: translateY(-6px);
-      background: rgba(255,255,255,.12);
-      box-shadow: 0 20px 60px rgba(0,0,0,.5);
-    }
-
-    /* ===== GLASS CARD ===== */
-    .glass-card {
-      background: rgba(255,255,255,.04);
-      border: 1px solid rgba(255,255,255,.12);
-      border-radius: 28px;
-      backdrop-filter: blur(35px) saturate(180%);
-      padding: 2rem;
-      transition: .4s;
-      box-shadow: 0 15px 50px rgba(0,0,0,.35);
-    }
-
-    .glass-card:hover {
-      transform: translateY(-12px) scale(1.01);
-      background: rgba(255,255,255,.08);
-      box-shadow: 0 25px 80px rgba(0,0,0,.55);
-    }
-
-    .section-title {
-      font-size: 2.2rem;
-      margin-bottom: 2rem;
-      text-align: center;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
-      gap: 1.5rem;
-    }
-
-    .projects img {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-      border-radius: 18px;
-      margin-bottom: 1rem;
-    }
-
-    .price {
-      font-size: 2rem;
-      font-weight: 600;
-      margin: 1rem 0;
-    }
-
-    .contact-box {
-      text-align: center;
-    }
-
-    footer {
-      text-align: center;
-      padding: 2rem;
-      color: #777;
-    }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: 1s ease;
-    }
-
-    .reveal.active {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    @media (max-width: 768px) {
-      nav {
-        flex-direction: column;
-        gap: 1rem;
-      }
-
-      nav ul {
-        flex-wrap: wrap;
-        justify-content: center;
-      }
+    img{
+      width:100%;
+      height:180px;
+      object-fit:cover;
+      border-radius:16px;
+      margin-bottom:1rem;
     }
   </style>
 </head>
-
 <body>
 
-<!-- GATE -->
-<div class="gate" id="gate">
-  <h1>Welcome to My Creative Space</h1>
-  <button onclick="enterSite()">Tap to Enter</button>
-</div>
-
-<!-- NAV -->
 <nav>
   <div class="logo">Brix Creative Studio</div>
   <ul>
-    <li><a href="#about">About</a></li>
-    <li><a href="#services">Services</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#pricing">Pricing</a></li>
-    <li><a href="#contact">Contact</a></li>
+    <li><a class="active" onclick="showTab('home',this)">Home</a></li>
+    <li><a onclick="showTab('about',this)">About</a></li>
+    <li><a onclick="showTab('services',this)">Services</a></li>
+    <li><a onclick="showTab('projects',this)">Projects</a></li>
+    <li><a onclick="showTab('pricing',this)">Pricing</a></li>
+    <li><a onclick="showTab('contact',this)">Contact</a></li>
   </ul>
 </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-content reveal">
-    <h1>Turning Moments Into Interactive Memories</h1>
-    <p>I create personalized interactive webpages for special occasions.</p>
-    <a href="#projects" class="btn">View My Works</a>
+<section id="home" class="tab active">
+  <div class="hero">
+    <div>
+      <h1>Turning Moments Into Interactive Memories</h1>
+      <p>Explore my creative studio</p>
+    </div>
   </div>
-</section>
 
-<!-- ABOUT -->
-<section id="about" class="reveal">
-  <h2 class="section-title">About Me</h2>
-  <div class="glass-card">
-    <p>Hi! I'm Brix and I create personalized interactive webpages that turn special moments into unforgettable digital experiences.</p>
-  </div>
-</section>
-
-<!-- SERVICES -->
-<section id="services" class="reveal">
-  <h2 class="section-title">What I Offer</h2>
   <div class="grid">
-    <div class="glass-card">💖 Monthsary & Anniversary</div>
-    <div class="glass-card">🎂 Birthday Dedications</div>
-    <div class="glass-card">💌 Invitation Webpages</div>
-    <div class="glass-card">👶 Christening Invitations</div>
-    <div class="glass-card">✨ Custom Interactive Pages</div>
+    <div class="glass">
+      <h3>About</h3>
+      <p>Learn more about what I do and how I create interactive experiences.</p>
+      <a class="btn" onclick="showTab('about',document.querySelectorAll('nav a')[1])">Go</a>
+    </div>
+
+    <div class="glass">
+      <h3>Services</h3>
+      <p>Monthsary, birthdays, invitations and custom webpages.</p>
+      <a class="btn" onclick="showTab('services',document.querySelectorAll('nav a')[2])">Go</a>
+    </div>
+
+    <div class="glass">
+      <h3>Projects</h3>
+      <p>Sample works and interactive designs I’ve built.</p>
+      <a class="btn" onclick="showTab('projects',document.querySelectorAll('nav a')[3])">Go</a>
+    </div>
+
+    <div class="glass">
+      <h3>Pricing</h3>
+      <p>Affordable and custom pricing depending on your needs.</p>
+      <a class="btn" onclick="showTab('pricing',document.querySelectorAll('nav a')[4])">Go</a>
+    </div>
+
+    <div class="glass">
+      <h3>Contact</h3>
+      <p>Reach me through my social media, email, or phone (inside contact page).</p>
+      <a class="btn" onclick="showTab('contact',document.querySelectorAll('nav a')[5])">Go</a>
+    </div>
   </div>
 </section>
 
-<!-- PROJECTS -->
-<section id="projects" class="reveal">
-  <h2 class="section-title">Recent Projects</h2>
-  <div class="grid projects">
+<section id="about" class="tab">
+  <h2 class="title">About Me</h2>
+  <div class="glass">I create interactive webpages for special digital experiences.</div>
+</section>
 
-    <div class="glass-card">
+<section id="services" class="tab">
+  <h2 class="title">Services</h2>
+  <div class="grid">
+    <div class="glass">💖 Monthsary & Anniversary</div>
+    <div class="glass">🎂 Birthday Dedications</div>
+    <div class="glass">💌 Invitations</div>
+    <div class="glass">👶 Christening Pages</div>
+    <div class="glass">✨ Custom Web Experiences</div>
+  </div>
+</section>
+
+<section id="projects" class="tab">
+  <h2 class="title">Sample Projects</h2>
+  <div class="grid">
+    <div class="glass">
       <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2">
-      <h3>Romantic Monthsary Page</h3>
-      <p>Password protected experience.</p>
+      Romantic Monthsary Page
     </div>
-
-    <div class="glass-card">
+    <div class="glass">
       <img src="https://images.unsplash.com/photo-1464349095431-e9a21285b5fc">
-      <h3>Birthday Dedication</h3>
-      <p>Cinematic birthday webpage.</p>
+      Birthday Dedication
     </div>
-
-    <div class="glass-card">
+    <div class="glass">
       <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc">
-      <h3>Online Invitation</h3>
-      <p>Elegant shareable invitation page.</p>
+      Online Invitation
     </div>
-
   </div>
 </section>
 
-<!-- PRICING -->
-<section id="pricing" class="reveal">
-  <h2 class="section-title">Pricing</h2>
+<section id="pricing" class="tab">
+  <h2 class="title">Pricing</h2>
   <div class="grid">
-    <div class="glass-card">
-      <h3>Basic</h3>
-      <div class="price">₱299</div>
-      <p>Simple interactive webpage.</p>
-    </div>
-
-    <div class="glass-card">
-      <h3>Premium</h3>
-      <div class="price">₱599</div>
-      <p>With animations and effects.</p>
-    </div>
-
-    <div class="glass-card">
-      <h3>Custom</h3>
-      <div class="price">Flexible</div>
-      <p>Fully customized design.</p>
-    </div>
+    <div class="glass">Basic <p>₱299</p></div>
+    <div class="glass">Premium <p>₱599</p></div>
+    <div class="glass">Custom <p>Flexible</p></div>
   </div>
 </section>
 
-<!-- CONTACT -->
-<section id="contact" class="reveal">
-  <div class="glass-card contact-box">
-    <h2>Let's Create Something Memorable</h2>
-    <p>Ready to start your project?</p>
-    <a href="https://facebook.com" class="btn">Message Me</a>
+<section id="contact" class="tab">
+  <h2 class="title">Contact</h2>
+  <div class="glass" style="text-align:center;">
+    You can reach me through Facebook, Email, or Phone number (shown privately upon inquiry).
   </div>
 </section>
-
-<footer>
-  © 2026 Brix Creative Studio
-</footer>
 
 <script>
-function enterSite(){
-  document.getElementById('gate').classList.add('hidden');
+function showTab(id,el){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+
+  document.querySelectorAll('nav a').forEach(a=>a.classList.remove('active'));
+  el.classList.add('active');
 }
-
-const reveals = document.querySelectorAll('.reveal');
-
-window.addEventListener('scroll', () => {
-  reveals.forEach(el => {
-    if (el.getBoundingClientRect().top < window.innerHeight - 100) {
-      el.classList.add('active');
-    }
-  });
-});
 </script>
 
 </body>
