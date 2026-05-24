@@ -53,23 +53,32 @@ nav{
   border-radius:999px;
   box-shadow:0 25px 60px rgba(0,0,0,.45);
 
-  z-index:100;
+  z-index:1000; /* fixed */
 }
 
-/* LOGO */
+/* LOGO - UPDATED ONLY */
 .logo{
   padding:8px 14px;
   border-radius:999px;
   background:rgba(255,255,255,.06);
   border:1px solid rgba(255,255,255,.12);
-  font-weight:600;
   transition:.3s;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
 .logo:hover{
   transform:scale(1.05);
   border-color:rgba(212,175,55,.5);
   box-shadow:0 0 20px rgba(212,175,55,.15);
+}
+
+.logo-img{
+  height:45px;
+  width:auto;
+  display:block;
 }
 
 /* NAV LINKS */
@@ -120,6 +129,7 @@ nav{
   border-color:rgba(212,175,55,.4);
 }
 
+/* OVERLAY FIXED */
 #overlay{
   position:fixed;
   inset:0;
@@ -127,6 +137,7 @@ nav{
   opacity:0;
   pointer-events:none;
   transition:.3s;
+  z-index:998;
 }
 
 #overlay.show{
@@ -134,6 +145,7 @@ nav{
   pointer-events:auto;
 }
 
+/* SIDEBAR FIXED */
 .sidebar{
   position:fixed;
   top:0;
@@ -147,9 +159,12 @@ nav{
   background:rgba(255,255,255,.06);
   backdrop-filter:blur(25px);
   transition:.4s;
+  z-index:999;
 }
 
-.sidebar.show{ right:0; }
+.sidebar.show{
+  right:0;
+}
 
 .sidebar a{
   padding:14px;
@@ -247,7 +262,6 @@ img{
   transition:.4s ease;
 }
 
-/* IMAGE HOVER */
 img:hover{
   transform:scale(1.05);
   filter:brightness(1.1) contrast(1.05);
@@ -255,8 +269,18 @@ img:hover{
 
 /* RESPONSIVE */
 @media(max-width:768px){
-  .nav-bubble{display:none;}
-  .menu-bubble{display:block;}
+
+  .nav-bubble{
+    display:none;
+  }
+
+  .menu-bubble{
+    display:block;
+  }
+
+  .logo-img{
+    height:35px;
+  }
 }
 
 </style>
@@ -265,18 +289,22 @@ img:hover{
 <body>
 
 <nav>
-  <div class="logo">Brix Creative Studio</div>
 
-  <div class="nav-bubble">
+<div class="logo">
+  <img src="IMG.png" alt="Brix Creative Studio Logo" class="logo-img">
+</div>
+
+<div class="nav-bubble">
     <a class="active" onclick="showTab('home',this)">Home</a>
     <a onclick="showTab('about',this)">About</a>
     <a onclick="showTab('services',this)">Services</a>
     <a onclick="showTab('projects',this)">Projects</a>
     <a onclick="showTab('pricing',this)">Pricing</a>
     <a onclick="showTab('contact',this)">Contact</a>
-  </div>
+</div>
 
-  <div class="menu-bubble" onclick="toggleMenu()">☰</div>
+<div class="menu-bubble" onclick="toggleMenu()">☰</div>
+
 </nav>
 
 <div id="overlay" onclick="toggleMenu()"></div>
@@ -297,6 +325,7 @@ img:hover{
   </div>
 
   <div class="grid">
+
     <div class="glass">
       <h3>About</h3>
       <p>Learn who I am and what I create.</p>
@@ -326,6 +355,7 @@ img:hover{
       <p>Reach me anytime.</p>
       <a class="btn" onclick="showTab('contact',document.querySelectorAll('.nav-bubble a')[5])">Go</a>
     </div>
+
   </div>
 </section>
 
@@ -355,6 +385,7 @@ img:hover{
 <!-- PROJECTS -->
 <section id="projects" class="tab">
   <div class="grid">
+
     <div class="glass">
       <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2">
       Romantic Monthsary Page
@@ -369,12 +400,14 @@ img:hover{
       <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc">
       Digital Invitation
     </div>
+
   </div>
 </section>
 
 <!-- PRICING -->
 <section id="pricing" class="tab">
   <div class="grid">
+
     <div class="glass">
       <h3>Basic</h3>
       <p>₱299</p>
@@ -389,6 +422,7 @@ img:hover{
       <h3>Custom</h3>
       <p>Depends on request</p>
     </div>
+
   </div>
 </section>
 
@@ -402,18 +436,26 @@ img:hover{
 
 <script>
 function showTab(id,el){
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+
+  document.querySelectorAll('.tab')
+  .forEach(t=>t.classList.remove('active'));
+
+  document.getElementById(id)
+  .classList.add('active');
 
   document.querySelectorAll('.nav-bubble a, .sidebar a')
-    .forEach(a=>a.classList.remove('active'));
+  .forEach(a=>a.classList.remove('active'));
 
   if(el) el.classList.add('active');
 }
 
 function toggleMenu(){
-  document.getElementById('sidebar').classList.toggle('show');
-  document.getElementById('overlay').classList.toggle('show');
+
+  document.getElementById('sidebar')
+  .classList.toggle('show');
+
+  document.getElementById('overlay')
+  .classList.toggle('show');
 }
 </script>
 
